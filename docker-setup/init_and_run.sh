@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 cd /code
 python3 manage.py wait_for_db
 python3 manage.py migrate || { echo 'migrate failed' ; exit 1; }
