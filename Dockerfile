@@ -15,6 +15,7 @@ COPY requirements.txt /home/docker/requirements.txt
 COPY dverein /var/www/
 COPY docker-setup/uwsgi-app.ini /etc/uwsgi/apps-enabled/uwsgi-app.ini
 COPY docker-setup/init_and_run.sh /home/docker/init_and_run.sh
+RUN chmod a+x /home/docker/init_and_run.sh
 WORKDIR /home/docker/
 RUN pip3 install -r requirements.txt
 EXPOSE 3031
