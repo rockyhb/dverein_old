@@ -1,2 +1,2 @@
 # dverein
-Django version of jverein application
+Django version of [jverein](https://github.com/jverein/jverein) application
