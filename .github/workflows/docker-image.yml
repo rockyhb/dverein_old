@@ -50,7 +50,7 @@ jobs:
         # Use Docker `latest` tag convention
         [ "$VERSION" == "main" ] && VERSION=latest
         VERSION_DATE=$VERSION-$(date +%y%m%d%H%M%S)
-        [ "$VERSION" == "main" ] && VERSION_DATE=$(date +%y%m%d%H%M%S)
+        [ "$VERSION" == "latest" ] && VERSION_DATE=$(date +%y%m%d%H%M%S)
         echo IMAGE_ID=$IMAGE_ID
         echo VERSION=$VERSION
         docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
