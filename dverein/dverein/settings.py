@@ -32,6 +32,7 @@ ALLOWED_HOSTS = [os.getenv('DJANGO_ALLOWED_HOSTS','*')]
 # Application definition
 
 INSTALLED_APPS = [
+    'backend.apps.BackendConfig',
     'verwaltung.apps.VerwaltungConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -77,10 +78,26 @@ WSGI_APPLICATION = 'dverein.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': os.getenv('DB_ENGINE',
+            'django.db.backends.sqlite3'
+            ),
+        'NAME': os.getenv('DB_NAME',os.getenv('MYSQL_DATABASE',
+            BASE_DIR / 'db.sqlite3'
+        )),
     }
 }
+e = os.getenv('MYSQL_USER')
+if e:
+    DATABASES['default']['USER'] = e
+e = os.getenv('MYSQL_PASSWORD')
+if e:
+    DATABASES['default']['PASSWORD'] = e
+e = os.getenv('MYSQL_HOST')
+if e:
+    DATABASES['default']['HOST'] = e
+e = os.getenv('MYSQL_PORT')
+if e:
+    DATABASES['default']['PORT'] = e
 
 
 # Password validation
@@ -117,7 +134,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_ROOT = '/var/www/static'
+
+STATIC_URL = '/static/'    
+
+# Extra places for collectstatic to find static files.
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
+
+JWT_SECRET = os.getenv('JWT_SECRET', get_random_secret_key())
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
